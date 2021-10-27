@@ -151,15 +151,13 @@ CREATE TABLE escala_viaje (
 /*TABLA ENCOMIENDA*/
 CREATE TABLE encomienda (
     id_encomienda       NUMBER(9),
-    id_viaje            NUMBER(9),
     peso                NUMBER(13, 2),
     precio              NUMBER(13, 2),
     descripcion         VARCHAR2(150),
     nombre_remitente    VARCHAR2(150),
     nombre_destinatario VARCHAR2(150),
     telefono            NUMBER(8),
-    CONSTRAINT pk_encomienda PRIMARY KEY ( id_encomienda ),
-    CONSTRAINT fk_encomienda_viaje FOREIGN KEY ( id_viaje ) REFERENCES viaje ( id_viaje )
+    CONSTRAINT pk_encomienda PRIMARY KEY ( id_encomienda )
 );
 
 
@@ -201,12 +199,12 @@ CREATE TABLE reservacion (
 CREATE TABLE autoriza_reserva (
     correlativo       NUMBER(9),
     id_tipo_pago      NUMBER(9),
-    id_estado_reserva NUMBER(9),
+    ID_RESERVACION NUMBER(9),
     autorizado_por    VARCHAR2(150),
     fecha             DATE,
     CONSTRAINT pk_autoriza_reserva PRIMARY KEY ( correlativo ),
     CONSTRAINT fk_pago_tipo FOREIGN KEY ( id_tipo_pago ) REFERENCES tipo_pago ( id_tipo_pago ),
-    CONSTRAINT fk_estado_reser FOREIGN KEY ( id_estado_reserva ) REFERENCES estado_reservacion ( id_estado_reserva )
+    CONSTRAINT fk_reser_id FOREIGN KEY (ID_RESERVACION) REFERENCES RESERVACION(ID_RESERVACION)
 );
 
 
@@ -235,15 +233,4 @@ CREATE TABLE detalle_pago (
     CONSTRAINT pk_detalle_pago PRIMARY KEY ( id_detalle_pago ),
     CONSTRAINT fk_reserva FOREIGN KEY ( id_reservacion ) REFERENCES reservacion ( id_reservacion )
 );
-
-
-
-ALTER TABLE AUTORIZA_RESERVA  DROP CONSTRAINT fk_estado_reser;   
-ALTER TABLE AUTORIZA_RESERVA  DROP COLUMN id_estado_reserva;   
-ALTER TABLE AUTORIZA_RESERVA  ADD id_reservacion NUMBER(9);   
-ALTER TABLE AUTORIZA_RESERVA  ADD FOREIGN KEY (ID_RESERVACION) REFERENCES RESERVACION(ID_RESERVACION);   
-
-
-ALTER TABLE ENCOMIENDA  DROP CONSTRAINT fk_encomienda_viaje;   
-ALTER TABLE ENCOMIENDA  DROP COLUMN id_viaje;   
 
