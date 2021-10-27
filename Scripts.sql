@@ -179,19 +179,6 @@ CREATE TABLE estado_reservacion (
     CONSTRAINT pk_estado_reserva PRIMARY KEY ( id_estado_reserva )
 );
 
-/*TABLA AUTORIZA_RESERVA*/
-CREATE TABLE autoriza_reserva (
-    correlativo       NUMBER(9),
-    id_tipo_pago      NUMBER(9),
-    id_estado_reserva NUMBER(9),
-    autorizado_por    VARCHAR2(150),
-    fecha             DATE,
-    CONSTRAINT pk_autoriza_reserva PRIMARY KEY ( correlativo ),
-    CONSTRAINT fk_pago_tipo FOREIGN KEY ( id_tipo_pago ) REFERENCES tipo_pago ( id_tipo_pago ),
-    CONSTRAINT fk_estado_reser FOREIGN KEY ( id_estado_reserva ) REFERENCES estado_reservacion ( id_estado_reserva )
-);
-
-
 
 /*TABLA RESERVACION*/
 CREATE TABLE reservacion (
@@ -207,6 +194,19 @@ CREATE TABLE reservacion (
     CONSTRAINT fk_id_estado_reser FOREIGN KEY ( id_estado_reserva )REFERENCES estado_reservacion ( id_estado_reserva ),
     CONSTRAINT fk_viaje_reser FOREIGN KEY ( id_viaje )REFERENCES viaje ( id_viaje ),
     CONSTRAINT fk_tipo_pago_reser FOREIGN KEY ( id_tipo_pago )  REFERENCES tipo_pago ( id_tipo_pago )
+);
+
+
+/*TABLA AUTORIZA_RESERVA*/
+CREATE TABLE autoriza_reserva (
+    correlativo       NUMBER(9),
+    id_tipo_pago      NUMBER(9),
+    id_estado_reserva NUMBER(9),
+    autorizado_por    VARCHAR2(150),
+    fecha             DATE,
+    CONSTRAINT pk_autoriza_reserva PRIMARY KEY ( correlativo ),
+    CONSTRAINT fk_pago_tipo FOREIGN KEY ( id_tipo_pago ) REFERENCES tipo_pago ( id_tipo_pago ),
+    CONSTRAINT fk_estado_reser FOREIGN KEY ( id_estado_reserva ) REFERENCES estado_reservacion ( id_estado_reserva )
 );
 
 
@@ -237,4 +237,13 @@ CREATE TABLE detalle_pago (
 );
 
 
+
+ALTER TABLE AUTORIZA_RESERVA  DROP CONSTRAINT fk_estado_reser;   
+ALTER TABLE AUTORIZA_RESERVA  DROP COLUMN id_estado_reserva;   
+ALTER TABLE AUTORIZA_RESERVA  ADD id_reservacion NUMBER(9);   
+ALTER TABLE AUTORIZA_RESERVA  ADD FOREIGN KEY (ID_RESERVACION) REFERENCES RESERVACION(ID_RESERVACION);   
+
+
+ALTER TABLE ENCOMIENDA  DROP CONSTRAINT fk_encomienda_viaje;   
+ALTER TABLE ENCOMIENDA  DROP COLUMN id_viaje;   
 
