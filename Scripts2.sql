@@ -262,7 +262,7 @@ CACHE 20
 NOCYCLE
 NOORDER;   
 
-/*TABLA ENCOMIENDA*/          /*cambiado***********************/
+/*TABLA ENCOMIENDA*/          
 CREATE TABLE ENCOMIENDA (
     ID_ENCOMIENDA       NUMBER(9),
     PESO                NUMBER(13, 2),
@@ -316,7 +316,7 @@ CACHE 20
 NOCYCLE
 NOORDER;
 
-/*TABLA AUTORIZA_RESERVA*/    /*cambiado**************/
+/*TABLA AUTORIZA_RESERVA*/   
 CREATE TABLE AUTORIZA_RESERVA (
     CORRELATIVO       NUMBER(9),
     ID_TIPO_PAGO      NUMBER(9),
